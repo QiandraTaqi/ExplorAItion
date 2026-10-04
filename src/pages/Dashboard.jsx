@@ -16,7 +16,7 @@ export default function Dashboard() {
   const kpis = useMemo(() => {
     const totalStock = inventory.reduce((sum, item) => sum + item.stockQuantity, 0)
     const lowStockItems = inventory.filter(
-      (item) => item.status === 'Low Stock'
+      (item) => item.status === 'Low Stock' || item.status === 'No Stock'
     ).length
     const autoConfirmedToday = botLogs.length
     return { totalStock, lowStockItems, autoConfirmedToday }
@@ -32,16 +32,24 @@ export default function Dashboard() {
   }
 
   function toggleLiveUpdate() {
-    // Live mock stock level toggle to show zero-delay updates
-    setInventory((prev) =>
-      prev.map((item) => {
-        if (item.sku === 'SKU-003' && item.stockQuantity > 0) {
-          return { ...item, stockQuantity: item.stockQuantity - 1 }
+    setInventory((prev) => {
+      // Find the first item that still has stock remaining
+      const targetItem = prev.find((item) => item.stockQuantity > 0)
+      if (!targetItem) return prev
+
+      return prev.map((item) => {
+        if (item.id === targetItem.id) {
+          const newQty = item.stockQuantity - 1
+          return {
+            ...item,
+            stockQuantity: newQty,
+            status: newQty === 0 ? 'No Stock' : (newQty <= 20 ? 'Low Stock' : item.status),
+          }
         }
         return item
       })
-    )
-  }
+    })
+z  }
 
   return (
     <Layout>

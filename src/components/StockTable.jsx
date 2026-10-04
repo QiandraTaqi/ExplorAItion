@@ -1,9 +1,10 @@
-﻿import { Search } from 'lucide-react'
+import { Search } from 'lucide-react'
 
 export function Badge({ status }) {
   const styles = {
     'In Stock': 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20',
     'Low Stock': 'bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20',
+    'No Stock': 'bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-600/20',
     'Pending Match': 'bg-yellow-50 text-yellow-800 ring-1 ring-inset ring-yellow-600/20',
     Matched: 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20',
     'Error Flagged': 'bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/20',
