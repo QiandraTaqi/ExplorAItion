@@ -13,8 +13,7 @@ function NavItems({ onItemClick }) {
   return (
     <>
       <div className="flex h-16 items-center gap-2 px-6 border-b border-gray-200">
-        <Bot className="h-6 w-6 text-indigo-600" />
-        <span className="text-lg font-semibold tracking-tight">ExplorAItion</span>
+        <span className="text-lg font-semibold tracking-tight">AwareHouse</span>
       </div>
       <nav className="flex-1 space-y-1 px-3 py-4">
         {navItems.map((item) => (
