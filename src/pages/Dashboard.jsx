@@ -34,8 +34,12 @@ export default function Dashboard() {
   function toggleLiveUpdate() {
     setInventory((prev) => {
       // Find the first item that still has stock remaining
-      const targetItem = prev.find((item) => item.stockQuantity > 0)
-      if (!targetItem) return prev
+      const availableItems = prev.filter((item) => item.stockQuantity > 0)
+      if (availableItems.length === 0) return prev
+
+      const targetItem = availableItems.reduce((lowest, current) => 
+        current.stockQuantity < lowest.stockQuantity ? current : lowest
+      )
 
       return prev.map((item) => {
         if (item.id === targetItem.id) {
